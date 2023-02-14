@@ -72,14 +72,14 @@
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="60sp"
+                    android:layout_width="@dimen/_85sdp"
                     android:layout_height="match_parent" />
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profilePic"
-                    android:layout_width="85sp"
-                    android:layout_height="90sp"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
                     android:layout_gravity="center"
                     android:src="@drawable/adduser2" />
 

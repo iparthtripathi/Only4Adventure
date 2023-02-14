@@ -137,7 +137,7 @@ class SignIn_Activity : AppCompatActivity() {
                                 })
                                 binding.loginButton.visibility= View.VISIBLE
                                 binding.progressbar.visibility=View.GONE
-                                startActivity(Intent(this, waitPage::class.java))
+                                startActivity(Intent(this, HomeActivity::class.java))
 
                             } else {
                                 u.sendEmailVerification()

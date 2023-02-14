@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel
 import com.google.firebase.FirebaseError
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -114,6 +116,7 @@ class HomeFragment : Fragment()  {
             }
             false
         }
+
 
         binding.slider.animDuration = 150
         binding.slider.onSlideCompleteListener = object : SlideToActView.OnSlideCompleteListener {
