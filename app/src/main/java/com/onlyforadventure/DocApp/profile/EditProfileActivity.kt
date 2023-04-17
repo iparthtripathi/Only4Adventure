@@ -15,6 +15,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var db : DatabaseReference
+    private lateinit var db1 : DatabaseReference
     private lateinit var sharedPreference : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         var userID = sharedPreference.getString("uid", "Not found").toString()
         db = FirebaseDatabase.getInstance().getReference("Users")
+        db1=FirebaseDatabase.getInstance().getReference("Doctor")
         val user = mapOf<String,String>(
             "name" to name,
             "age" to age,
@@ -54,6 +56,14 @@ class EditProfileActivity : AppCompatActivity() {
             Toast.makeText(baseContext, "Successfully Updated", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {
             Toast.makeText(baseContext, "Failed to update", Toast.LENGTH_SHORT).show()
+        }
+        db1.child(userID).updateChildren(user).addOnSuccessListener {
+
+            binding.editName.text.clear()
+            binding.editAge.text.clear()
+            binding.editPhoneNumber.text.clear()
+        }.addOnFailureListener {
+
         }
     }
 }

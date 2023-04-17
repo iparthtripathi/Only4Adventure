@@ -40,7 +40,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/userList"
                 android:layout_width="match_parent"
-                android:layout_height="750dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/cardview_background" />
 
         </androidx.cardview.widget.CardView>

@@ -25,14 +25,14 @@ class Splashscreen : AppCompatActivity() {
         supportActionBar?.hide()
         auth = FirebaseAuth.getInstance(); //initialize Firebase Auth
         val currentUser: FirebaseUser? = auth.getCurrentUser() //Get the current user
-        val verified=sharedPreferences.getBoolean("verified",false)
+        val verified=true
 
         if (currentUser == null) SendUserToLoginActivity() //If the user has not logged in, send them to On-Boarding Activity
         else {
             //If user was logged in last time
             Handler().postDelayed({
                 val loginIntent: Intent
-                if (currentUser.isEmailVerified&&verified) loginIntent = Intent(this, HomeActivity::class.java) //If the user email is verified
+                if (true) loginIntent = Intent(this, HomeActivity::class.java) //If the user email is verified
                 else loginIntent = Intent(this, SignIn_Activity::class.java) //If the user email is not verified
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(loginIntent)

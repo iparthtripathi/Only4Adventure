@@ -49,9 +49,10 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.userViewHolder
     public void onBindViewHolder(@NonNull userViewHolder holder, @SuppressLint("RecyclerView") int position) {
         userModel userModel=list.get(position);
         holder.name.setText(userModel.getName());
-        holder.email.setText(userModel.getEmail());
         holder.specialization.setText(userModel.getSpecialization());
         holder.phone.setText(userModel.getPhone());
+        holder.fees.setText(userModel.getFees());
+        holder.email.setText(userModel.getLoc());
         Bitmap bitmap=getBitmapFromURL(userModel.getImg());
         Picasso.get().load(userModel.getImg()).into(holder.imageView);
 
@@ -65,6 +66,9 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.userViewHolder
                 intent.putExtra("Demail", userModel.getEmail());
                 intent.putExtra("Dphone", userModel.getPhone());
                 intent.putExtra("Dtype", userModel.getSpecialization());
+                intent.putExtra("DImg",userModel.getImg());
+                intent.putExtra("DLoc",userModel.getLoc());
+                intent.putExtra("DFees",userModel.getFees());
                 context.startActivity(intent);
             }
         });
@@ -78,7 +82,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.userViewHolder
 
     public static class userViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name,email,specialization,phone;
+        TextView name,email,specialization,phone,fees;
         CardView cardView;
         ImageView imageView;
 
@@ -91,6 +95,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.userViewHolder
             phone=itemView.findViewById(R.id.phone);
             imageView=itemView.findViewById(R.id.picture);
             cardView=itemView.findViewById(R.id.recyclerLayout);
+            fees=itemView.findViewById(R.id.fees);
         }
     }
 

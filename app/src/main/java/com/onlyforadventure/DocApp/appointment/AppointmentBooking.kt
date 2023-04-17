@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.onlyforadventure.DocApp.R
 import com.onlyforadventure.DocApp.databinding.ActivityAppointmentBookingBinding
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.ncorti.slidetoact.SlideToActView
+import com.onlyforadventure.DocApp.auth.User
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -21,6 +24,12 @@ class AppointmentBooking : AppCompatActivity() {
 
     private lateinit var binding: ActivityAppointmentBookingBinding
     private lateinit var sharedPreference : SharedPreferences
+    private lateinit var userName : String
+    private lateinit var userEmail : String
+    private lateinit var userPhone : String
+    private lateinit var userID: String
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var db: DatabaseReference
     //"Cardiologist", "Dentist", "ENT specialist", "Obstetrician/Gynaecologist", "Orthopaedic surgeon","Psychiatrists",
     // "Radiologist", "Pulmonologist", "Neurologist", "Allergists", "Gastroenterologists",
     // "Urologists", "Otolaryngologists", "Rheumatologists", "Anesthesiologists"
@@ -42,6 +51,7 @@ class AppointmentBooking : AppCompatActivity() {
     private lateinit var anesthesiologistsList: ArrayList<String>
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAppointmentBookingBinding.inflate(layoutInflater)
@@ -49,6 +59,7 @@ class AppointmentBooking : AppCompatActivity() {
         supportActionBar?.hide()
 
         sharedPreference = baseContext.getSharedPreferences("UserData", Context.MODE_PRIVATE)
+
 
         val diseaseValue = HashMap<String, Float>()
         setDiseaseValues(diseaseValue)
@@ -60,12 +71,24 @@ class AppointmentBooking : AppCompatActivity() {
 
         var totalPoint = 0
 
+        
+
         val doctorUid = intent.extras!!.getString("Duid")
         val doctorName = intent.extras!!.getString("Dname")
         val doctorEmail = intent.extras!!.getString("Demail")
         val doctorPhone = intent.extras!!.getString("Dphone")
         val doctorType = intent.extras!!.getString("Dtype")
+        val doctorImg=intent.extras!!.getString("DImg")
+        val doctorLoc=intent.extras!!.getString("DLoc")
+        val doctorFees=intent.extras!!.getString("DFees")
 
+        binding.name.text=doctorName
+        binding.email.text=doctorEmail
+        binding.phone.text=doctorPhone
+        binding.loc.text=doctorLoc
+        binding.fees.text=doctorFees
+        binding.fees1.text="₹"+doctorFees
+        Picasso.get().load(doctorImg).into( binding.profilePicture)
         // Date Picker
         binding.selectDate.setOnClickListener {
             // Initiation date picker with
@@ -473,6 +496,22 @@ class AppointmentBooking : AppCompatActivity() {
         diseaseValue["Difficulty breathing"] = 6f
         diseaseValue["Swelling of the throat and/or tongue"] = 5f
     }
+
+    private fun getUserData() {
+
+        firebaseAuth=FirebaseAuth.getInstance()
+        val user=firebaseAuth.currentUser
+        db=FirebaseDatabase.getInstance().getReference("Doctor")
+        val UID= user?.uid
+        if (UID != null) {
+            binding.name.text = db.child(UID).child("name").toString()
+            binding.email.text = db.child(UID).child("email").toString()
+            binding.phone.text = db.child(UID).child("phone").toString()
+            Picasso.get().load(db.child(UID).child("imgUrl").toString()).into( binding.profilePicture)
+            Toast.makeText(applicationContext,db.child(UID).child("imgUrl").toString(),Toast.LENGTH_LONG).show()
+        }
+    }
+
 
 }
 

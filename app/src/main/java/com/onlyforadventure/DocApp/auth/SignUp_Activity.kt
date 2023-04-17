@@ -33,6 +33,7 @@ class SignUp_Activity : AppCompatActivity() {
     private lateinit var img: Uri
     private lateinit var isDoctor: String
     private lateinit var age: String
+    var flag=0
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,7 @@ class SignUp_Activity : AppCompatActivity() {
         age = intent.extras!!.getString("age").toString()
         binding.profilePic.setOnClickListener{
             val intent= Intent()
+            flag=1
             intent.action=Intent.ACTION_GET_CONTENT
             intent.type="image/*"
             startActivityForResult(intent,1)
@@ -110,11 +112,12 @@ class SignUp_Activity : AppCompatActivity() {
 
         binding.createAccount.setOnClickListener {
             val sReference=storage.reference.child("Profile").child(Date().time.toString())
-            sReference.putFile(img).addOnCompleteListener{
-                if(it.isSuccessful){
-                    sReference.downloadUrl.addOnSuccessListener {task->
-                        uploadInfo(task.toString())
-
+            if(flag==1) {
+                sReference.putFile(img).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        sReference.downloadUrl.addOnSuccessListener { task ->
+                            uploadInfo(task.toString())
+                        }
                     }
                 }
             }
@@ -133,8 +136,7 @@ class SignUp_Activity : AppCompatActivity() {
                         //Create user object
                         val statsData = "0:0:0:0:0?0:0:0:0:0?0:0:0:0:0?0:0:0:0:0"
                         val user = User(binding.SignUpName.text.toString().trim(), binding.SignUpEmail.text.toString().trim(),
-                            RemoveCountryCode.remove(binding.SignUpPhone.text.toString().trim()), uid, isDoctor, age, binding.SignUpTypeOfDoctor.text.toString().trim(),"false",binding.license.text.toString().trim(), binding.location.text.toString().trim(),
-                            imgUrl, statsData, "false")
+                            RemoveCountryCode.remove(binding.SignUpPhone.text.toString().trim()), uid, isDoctor, age, binding.SignUpTypeOfDoctor.text.toString().trim(),"false", imgUrl, statsData, "false")
 
                         //add user data in the Realtime Database
                         db.child(u?.uid!!).setValue(user).addOnCompleteListener { it1 ->

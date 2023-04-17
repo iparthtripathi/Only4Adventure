@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "453593058347-d8mujmqr66f83j3n8dqb28071qcsr3t1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onlyforadventure.DocApp",
+            "certificate_hash": "a16673d491694b0befde559891512d0732dc6b7e"
+          }
+        },
+        {
           "client_id": "453593058347-qh2ui93v3k1u858j7ttcq3dr9g5882q8.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -56,6 +64,43 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.onlyforadventure.doctorapp",
+            "certificate_hash": "6c92503c86956a0faca25c489bbc86e21247f3f2"
+          }
+        },
+        {
+          "client_id": "453593058347-qh2ui93v3k1u858j7ttcq3dr9g5882q8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmpzxFwhrhhA3rsWJ-RG2qAQt5o6LBX5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453593058347-qh2ui93v3k1u858j7ttcq3dr9g5882q8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453593058347:android:e5385694d0a8d5c51cee6e",
+        "android_client_info": {
+          "package_name": "com.parth.DocApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453593058347-gleha6has83jf0nqbqe2p1n8834hjja7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parth.DocApp",
             "certificate_hash": "6c92503c86956a0faca25c489bbc86e21247f3f2"
           }
         },

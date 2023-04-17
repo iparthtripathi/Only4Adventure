@@ -109,38 +109,42 @@ class SignIn_Activity : AppCompatActivity() {
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                         if (it.isSuccessful) {
                             val u = firebaseAuth.currentUser
-                            if (u?.isEmailVerified!!) {
+                            if (true) {
 
                                 val db = FirebaseDatabase.getInstance().reference
                                 val encryption = Encryption.getDefault("Key", "Salt", ByteArray(16))
 
-                                db.child("Users").child(u.uid).addValueEventListener(object: ValueEventListener {
-                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                if (u != null) {
+                                    db.child("Users").child(u.uid).addValueEventListener(object: ValueEventListener {
+                                        override fun onDataChange(snapshot: DataSnapshot) {
 
-                                        editor.putString("uid", snapshot.child("uid").value.toString().trim())
-                                        editor.putString("name", snapshot.child("name").value.toString().trim())
-                                        editor.putString("age", snapshot.child("age").value.toString().trim())
-                                        editor.putString("email", snapshot.child("email").value.toString().trim())
-                                        editor.putString("phone", snapshot.child("phone").value.toString().trim())
-                                        editor.putString("isDoctor", snapshot.child("doctor").value.toString().trim())
-                                        editor.putString("specialist",snapshot.child("specialist").value.toString().trim())
-                                        editor.putString("stats", snapshot.child("stats").value.toString().trim())
-                                        editor.putString("prescription", snapshot.child("prescription").value.toString().trim())
-                                        editor.putString("upi", snapshot.child(encryption.encrypt("nulla")).value.toString().trim())
-                                        editor.apply()
+                                            editor.putString("uid", snapshot.child("uid").value.toString().trim())
+                                            editor.putString("name", snapshot.child("name").value.toString().trim())
+                                            editor.putString("age", snapshot.child("age").value.toString().trim())
+                                            editor.putString("email", snapshot.child("email").value.toString().trim())
+                                            editor.putString("phone", snapshot.child("phone").value.toString().trim())
+                                            editor.putString("isDoctor", snapshot.child("doctor").value.toString().trim())
+                                            editor.putString("specialist",snapshot.child("specialist").value.toString().trim())
+                                            editor.putString("stats", snapshot.child("stats").value.toString().trim())
+                                            editor.putString("prescription", snapshot.child("prescription").value.toString().trim())
+                                            editor.putString("upi", snapshot.child(encryption.encrypt("nulla")).value.toString().trim())
+                                            editor.apply()
 
-                                    }
+                                        }
 
-                                    override fun onCancelled(error: DatabaseError) {
-                                        TODO("Not yet implemented")
-                                    }
-                                })
+                                        override fun onCancelled(error: DatabaseError) {
+                                            TODO("Not yet implemented")
+                                        }
+                                    })
+                                }
                                 binding.loginButton.visibility= View.VISIBLE
                                 binding.progressbar.visibility=View.GONE
                                 startActivity(Intent(this, HomeActivity::class.java))
 
                             } else {
-                                u.sendEmailVerification()
+                                if (u != null) {
+                                    u.sendEmailVerification()
+                                }
                                 Toast.makeText(
                                     this,
                                     "Email Verification sent to your mail",
